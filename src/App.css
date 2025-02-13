@@ -38,18 +38,25 @@
   }
 }
 
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px auto;
+  width: 300px;
+}
+
 input[type="text"],
 input[type="number"],
 input[type="color"] {
   padding: 10px;
-  margin: 10px auto;
-  display: block;
-  width: 300px;
+  margin-top: 5px;
+  width: 100%;
 }
 
 button {
   padding: 10px 20px;
   cursor: pointer;
   display: block;
-  margin: 10px auto;
+  margin: 20px auto;
 }
