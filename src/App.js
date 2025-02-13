@@ -53,6 +53,10 @@ function App() {
     return `rgb(${r}, ${g}, ${b})`;
   };
 
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  };
+
   return (
     <div className="App">
       <h1>QR Code Generator</h1>
@@ -91,6 +95,10 @@ function App() {
       </div>
       {qrValue && (
         <div className="qr-container" ref={qrRef}>
+          <p className="encoded-text" style={{ fontSize: `${Math.max(8, qrSize / 12)}px`, top: '-40px' }}>
+            {truncateText(qrValue, 20)}
+          </p>
+          
           <QRCodeCanvas
             value={qrValue}
             size={parseInt(qrSize, 10)}
@@ -102,13 +110,10 @@ function App() {
           >
             BMI
           </div>
+          <p className="qr-bottom-text" style={{ fontSize: `${Math.max(10, qrSize / 14)}px`, bottom: `${-qrSize / 8}px` }}>
+            By qrcode.buckmaster.ca
+          </p>
         </div>
-      )}
-      {qrValue && (
-        <>
-          <p className="footer-text">Create your own at qrcode.buckmaster.ca</p>
-          <p className="encoded-text">Encoded Text: {qrValue}</p>
-        </>
       )}
       <div className="disclaimer">
         <p>This service is totally free; the QR code has no expiry. We are The Buckmaster Institute, Inc., developing web apps at <a href="https://buckmaster.ca" target="_blank" rel="noopener noreferrer">buckmaster.ca</a>.</p>

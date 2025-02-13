@@ -62,9 +62,13 @@ button {
 }
 
 .qr-container {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  margin: 20px auto;
+  position: relative;
 }
 
 .qr-overlay {
@@ -91,10 +95,21 @@ button {
 }
 
 .footer-text {
-  margin-top: 10px;
+  position: absolute;
+  left: -150px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 14px;
   color: #555;
-  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.qr-bottom-text {
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap;
+  margin-top: 5px;
 }
 
 .disclaimer {
@@ -125,8 +140,7 @@ button {
 }
 
 .encoded-text {
-  margin-top: 10px;
   font-size: 14px;
   color: #333;
-  text-align: center;
+  margin-bottom: 5px;
 }
