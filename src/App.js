@@ -29,7 +29,18 @@ function App() {
     const canvas = qrRef.current.querySelector('canvas');
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
-    const filename = inputValue ? inputValue.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'qrcode';
+    
+    // Remove http:// or https:// from the beginning
+    let filename = inputValue.replace(/^https?:\/\//, '');
+    
+    // Replace non-alphanumeric characters with underscores and limit length
+    filename = filename.replace(/[^a-z0-9]/gi, '_').toLowerCase().slice(0, 20);
+    
+    // Default to 'qrcode' if filename is empty
+    if (!filename) {
+      filename = 'qrcode';
+    }
+    
     a.href = url;
     a.download = `${filename}.png`;
     a.click();
@@ -94,7 +105,10 @@ function App() {
         </div>
       )}
       {qrValue && (
-        <p className="footer-text">Create your own at qrcode.buckmaster.ca</p>
+        <>
+          <p className="footer-text">Create your own at qrcode.buckmaster.ca</p>
+          <p className="encoded-text">Encoded Text: {qrValue}</p>
+        </>
       )}
       <div className="disclaimer">
         <p>This service is totally free; the QR code has no expiry. We are The Buckmaster Institute, Inc., developing web apps at <a href="https://buckmaster.ca" target="_blank" rel="noopener noreferrer">buckmaster.ca</a>.</p>

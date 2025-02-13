@@ -123,3 +123,10 @@ button {
   margin: 10px auto;
   width: fit-content;
 }
+
+.encoded-text {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
