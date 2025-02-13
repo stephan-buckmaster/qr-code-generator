@@ -6,7 +6,7 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [qrValue, setQrValue] = useState('');
   const [qrSize, setQrSize] = useState(128); // Default size
-  const [qrColor, setQrColor] = useState('#000000'); // Default color
+  const [qrColor, setQrColor] = useState('#8a1a1e'); // Default color
   const qrRef = useRef();
 
   const handleInputChange = (e) => {
