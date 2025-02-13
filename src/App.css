@@ -64,6 +64,7 @@ button {
 .qr-container {
   position: relative;
   display: inline-block;
+  text-align: center;
 }
 
 .qr-overlay {
@@ -83,8 +84,42 @@ button {
   height: 30px;
 }
 
+.expl-message {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
 .footer-text {
   margin-top: 10px;
   font-size: 14px;
   color: #555;
+  text-align: center;
+}
+
+.disclaimer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #777;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.disclaimer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.disclaimer a:hover {
+  text-decoration: underline;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px auto;
+  width: fit-content;
 }
