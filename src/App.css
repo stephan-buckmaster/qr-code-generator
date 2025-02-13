@@ -60,3 +60,31 @@ button {
   display: block;
   margin: 20px auto;
 }
+
+.qr-container {
+  position: relative;
+  display: inline-block;
+}
+
+.qr-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.qr-overlay img {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
+.footer-text {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}

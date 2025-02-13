@@ -24,6 +24,13 @@ function App() {
     setQrValue(inputValue);
   };
 
+  const getComplementaryColor = (color) => {
+    const r = 255 - parseInt(color.slice(1, 3), 16);
+    const g = 255 - parseInt(color.slice(3, 5), 16);
+    const b = 255 - parseInt(color.slice(5, 7), 16);
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+
   return (
     <div className="App">
       <h1>QR Code Generator</h1>
@@ -57,11 +64,22 @@ function App() {
       </label>
       <button onClick={generateQRCode}>Create QR Code</button>
       {qrValue && (
-        <QRCodeCanvas
-          value={qrValue}
-          size={parseInt(qrSize, 10)}
-          fgColor={qrColor}
-        />
+        <div className="qr-container">
+          <QRCodeCanvas
+            value={qrValue}
+            size={parseInt(qrSize, 10)}
+            fgColor={qrColor}
+          />
+          <div
+            className="qr-overlay"
+            style={{ border: `2px solid ${qrColor}` }}
+          >
+            BMI
+          </div>
+        </div>
+      )}
+      {qrValue && (
+        <p className="footer-text">Create your own at qrcode.buckmaster.ca</p>
       )}
     </div>
   );
