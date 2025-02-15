@@ -103,7 +103,7 @@ function App() {
   return (
     <div className="App">
       <h1>QR Code Generator</h1>
-      <p className="expl-message">If you think you know what this does, you got it!</p>
+      
       <label>
         Text to encode:
         <input
@@ -124,6 +124,7 @@ function App() {
         {showColorPicker && (
           <div className="sketch-picker">
             <SketchPicker
+              data-testid="color-picker"
               color={qrColor}
               onChange={(color, event) => handleColorChange(color, event)}
             />
@@ -142,6 +143,7 @@ function App() {
         {showBgColorPicker && (
           <div className="sketch-picker">
             <SketchPicker
+              data-testid="bg-color-picker"
               color={bgColor}
               onChange={(color, event) => handleBgColorChange(color, event)}
             />
