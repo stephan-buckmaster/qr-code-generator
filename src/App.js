@@ -51,7 +51,29 @@ function App() {
   };
 
   const downloadQRCode = () => {
-    const canvas = qrRef.current.querySelector('canvas');
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const qrCanvas = qrRef.current.querySelector('canvas');
+    const textAbove = truncateText(qrValue, 20);
+    const textBelow = "Created by qrcode.buckmaster.ca";
+
+    // Set canvas size
+    canvas.width = qrCanvas.width;
+    canvas.height = qrCanvas.height + 60; // Extra space for text
+
+    // Draw the QR code onto the new canvas
+    context.drawImage(qrCanvas, 0, 30);
+
+    // Draw the text above the QR code
+    context.font = '18px Arial';
+    context.fillStyle = qrColor;
+    context.textAlign = 'center';
+    context.fillText(textAbove, canvas.width / 2, 20);
+
+    // Draw the text below the QR code with a smaller font size
+    context.font = '16px Arial'; // Reduced font size
+    context.fillText(textBelow, canvas.width / 2, canvas.height - 10);
+
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
     
