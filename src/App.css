@@ -107,6 +107,7 @@ button {
   width: 100%;
   max-width: 300px;
   margin: 10px auto;
+  position: relative;
 }
 
 .color-display {
@@ -115,6 +116,13 @@ button {
   background-color: #8a1a1e;
   margin-left: 10px;
   border: 1px solid #ccc;
+}
+
+.sketch-picker {
+  position: absolute;
+  z-index: 10;
+  top: 40px;
+  left: 0;
 }
 
 /* Responsive adjustments for mobile devices */

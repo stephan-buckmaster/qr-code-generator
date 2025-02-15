@@ -6,29 +6,48 @@ import './App.css';
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [qrValue, setQrValue] = useState('');
-  const [qrSize, setQrSize] = useState(128); // Default size
   const [qrColor, setQrColor] = useState('#8a1a1e'); // Default color
+  const [bgColor, setBgColor] = useState('#ffffff'); // Default background color
   const [showColorPicker, setShowColorPicker] = useState(false); // State for color picker visibility
+  const [showBgColorPicker, setShowBgColorPicker] = useState(false); // State for background color picker visibility
   const qrRef = useRef();
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleSizeChange = (e) => {
-    setQrSize(e.target.value);
+  const handleColorChange = (color, event) => {
+    if (event.target.className.includes('saturation')) {
+      setQrColor(color.hex);
+      setShowColorPicker(false);
+    } else {
+      setQrColor(color.hex);
+    }
   };
 
-  const handleColorChange = (color) => {
-    setQrColor(color.hex);
+  const handleBgColorChange = (color, event) => {
+    if (event.target.className.includes('saturation')) {
+      setBgColor(color.hex);
+      setShowBgColorPicker(false);
+    } else {
+      setBgColor(color.hex);
+    }
   };
 
   const toggleColorPicker = () => {
     setShowColorPicker(!showColorPicker);
   };
 
+  const toggleBgColorPicker = () => {
+    setShowBgColorPicker(!showBgColorPicker);
+  };
+
   const generateQRCode = () => {
-    setQrValue(inputValue);
+    if (inputValue.trim() !== '') {
+      setQrValue(inputValue);
+    } else {
+      alert('Please enter text to encode.');
+    }
   };
 
   const downloadQRCode = () => {
@@ -36,13 +55,9 @@ function App() {
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
     
-    // Remove http:// or https:// from the beginning
     let filename = inputValue.replace(/^https?:\/\//, '');
-    
-    // Replace non-alphanumeric characters with underscores and limit length
     filename = filename.replace(/[^a-z0-9]/gi, '_').toLowerCase().slice(0, 20);
     
-    // Default to 'qrcode' if filename is empty
     if (!filename) {
       filename = 'qrcode';
     }
@@ -76,49 +91,57 @@ function App() {
           placeholder="Enter text to encode (usually a URL)"
         />
       </label>
-      <label>
-        Size:
-        <input
-          type="number"
-          value={qrSize}
-          onChange={handleSizeChange}
-          placeholder="Size of the QR Code"
-          min="64"
-          max="512"
+      <div className="color-picker-container">
+        <button onClick={toggleColorPicker}>
+          {showColorPicker ? 'Close Color Picker' : 'Choose Color'}
+        </button>
+        <div
+          className="color-display"
+          style={{ backgroundColor: qrColor }}
         />
-      </label>
-      <label>
-        Colour:
-        <div className="color-picker-container">
-          <button onClick={toggleColorPicker}>
-            {showColorPicker ? 'Close Color Picker' : 'Choose Color'}
-          </button>
-          <div
-            className="color-display"
-            style={{ backgroundColor: qrColor }}
-          />
-        </div>
         {showColorPicker && (
-          <SketchPicker
-            color={qrColor}
-            onChangeComplete={handleColorChange}
-          />
+          <div className="sketch-picker">
+            <SketchPicker
+              color={qrColor}
+              onChange={(color, event) => handleColorChange(color, event)}
+            />
+            <button onClick={() => setShowColorPicker(false)}>Close</button>
+          </div>
         )}
-      </label>
+      </div>
+      <div className="color-picker-container">
+        <button onClick={toggleBgColorPicker}>
+          {showBgColorPicker ? 'Close Background Picker' : 'Choose Background'}
+        </button>
+        <div
+          className="color-display"
+          style={{ backgroundColor: bgColor }}
+        />
+        {showBgColorPicker && (
+          <div className="sketch-picker">
+            <SketchPicker
+              color={bgColor}
+              onChange={(color, event) => handleBgColorChange(color, event)}
+            />
+            <button onClick={() => setShowBgColorPicker(false)}>Close</button>
+          </div>
+        )}
+      </div>
       <div className="button-group">
         <button onClick={generateQRCode}>Create QR Code</button>
         {qrValue && <button onClick={downloadQRCode}>Download QR Code</button>}
       </div>
       {qrValue && (
         <div className="qr-container" ref={qrRef}>
-          <p className="encoded-text" style={{ fontSize: `${Math.max(8, qrSize / 12)}px`, top: '-40px' }}>
+          <p className="encoded-text" style={{ fontSize: '18px', top: '-40px' }}>
             {truncateText(qrValue, 20)}
           </p>
           
           <QRCodeCanvas
             value={qrValue}
-            size={parseInt(qrSize, 10)}
+            size={256} // Set a default size
             fgColor={qrColor}
+            bgColor={bgColor} // Apply the background color
           />
           <div
             className="qr-overlay"
@@ -126,7 +149,7 @@ function App() {
           >
             BMI
           </div>
-          <p className="qr-bottom-text" style={{ fontSize: `${Math.max(10, qrSize / 14)}px`, bottom: `${-qrSize / 8}px` }}>
+          <p className="qr-bottom-text" style={{ fontSize: '18px', bottom: '-20px' }}>
             By qrcode.buckmaster.ca
           </p>
         </div>
