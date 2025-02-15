@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import { SketchPicker } from 'react-color';
 import './App.css';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [qrValue, setQrValue] = useState('');
   const [qrSize, setQrSize] = useState(128); // Default size
   const [qrColor, setQrColor] = useState('#8a1a1e'); // Default color
+  const [showColorPicker, setShowColorPicker] = useState(false); // State for color picker visibility
   const qrRef = useRef();
 
   const handleInputChange = (e) => {
@@ -17,8 +19,12 @@ function App() {
     setQrSize(e.target.value);
   };
 
-  const handleColorChange = (e) => {
-    setQrColor(e.target.value);
+  const handleColorChange = (color) => {
+    setQrColor(color.hex);
+  };
+
+  const toggleColorPicker = () => {
+    setShowColorPicker(!showColorPicker);
   };
 
   const generateQRCode = () => {
@@ -83,11 +89,21 @@ function App() {
       </label>
       <label>
         Colour:
-        <input
-          type="color"
-          value={qrColor}
-          onChange={handleColorChange}
-        />
+        <div className="color-picker-container">
+          <button onClick={toggleColorPicker}>
+            {showColorPicker ? 'Close Color Picker' : 'Choose Color'}
+          </button>
+          <div
+            className="color-display"
+            style={{ backgroundColor: qrColor }}
+          />
+        </div>
+        {showColorPicker && (
+          <SketchPicker
+            color={qrColor}
+            onChangeComplete={handleColorChange}
+          />
+        )}
       </label>
       <div className="button-group">
         <button onClick={generateQRCode}>Create QR Code</button>

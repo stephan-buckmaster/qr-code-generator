@@ -83,11 +83,38 @@ input[type="color"] {
   font-size: 16px;
 }
 
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 10px auto;
+  width: 100%;
+  max-width: 300px;
+}
+
 button {
   padding: 10px 20px;
   cursor: pointer;
   display: block;
-  margin: 20px auto;
+  margin-top: 10px;
+  
+  max-width: 280px;
+}
+
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+}
+
+.color-display {
+  width: 24px;
+  height: 24px;
+  background-color: #8a1a1e;
+  margin-left: 10px;
+  border: 1px solid #ccc;
 }
 
 /* Responsive adjustments for mobile devices */
@@ -150,10 +177,3 @@ button {
   text-decoration: underline;
 }
 
-.button-group {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 10px auto;
-  width: fit-content;
-}
