@@ -150,7 +150,7 @@ function App() {
             BMI
           </div>
           <p className="qr-bottom-text" style={{ fontSize: '18px', bottom: '-20px' }}>
-            By qrcode.buckmaster.ca
+            Created by qrcode.buckmaster.ca
           </p>
         </div>
       )}
